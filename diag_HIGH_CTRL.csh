@@ -104,15 +104,15 @@ setenv DIAG_VERSION 140804  # version number YYMMDD
 #
 # Don t forget the trailing / when setting the paths
 
-set test_casename  = spinup_B_2000_cam5_f09_g16
-set test_amwg_case = LOW_CTRL_vs_OBS
+set test_casename  = spinup_pd_maxcores_f05_t12
+set test_amwg_case = HIGH_CTRL_vs_OBS
 set test_filetype  = monthly_history 
 #set test_filetype = time_series
 
-set test_path_history = /projects/0/acc/cesm/cesm1_1_2/$test_casename/OUTPUT/atm/hist/monthly/
+set test_path_history = /projects/0/prace_imau/prace_2013081679/cesm1_0_4/$test_casename/OUTPUT/atm/hist/monthly/
 set test_path_climo   = /projects/0/prace_imau/prace_2013081679/andre/AMWG/$test_amwg_case/climo
 set test_path_diag    = /projects/0/prace_imau/prace_2013081679/andre/AMWG/$test_amwg_case/diag/
-set test_path_HPSS    = /projects/0/acc/cesm/cesm1_1_2/$test_casename/OUTPUT/atm/hist/monthly
+set test_path_HPSS    = /projects/0/prace_imau/prace_2013081679/cesm1_0_4/$test_casename/OUTPUT/atm/hist/monthly/
 
 #******************************************************************
 
@@ -169,7 +169,7 @@ set cntl_compute_climo = 1  # (0=ON,1=OFF)
 # First year of data is: $test_first_yr     (must be >= 1)
 # Number of years is: $test_nyrs         (must be >= 1)
 
-set test_first_yr = 500           # first year (must be >= 1)
+set test_first_yr = 200           # first year (must be >= 1)
 set test_nyrs     = 30            # number of yrs (must be >= 1)
 
 # FOR CNTL == USER ONLY (otherwise skip this section)
@@ -281,15 +281,15 @@ set p_type = ps     # postscript
 #-------------------------------------------------------------------
 # Select the output color type for plots.
 
- set c_type = COLOR      # color
+set c_type = COLOR      # color
 #set c_type = MONO       # black and white
 
 # If needed select one of the following color schemes,
 # you can see the colors by clicking on the links from
 # http://www.cgd.ucar.edu/cms/diagnostics
 
- set color_bar = default           # the usual colors
- set color_bar = blue_red          # blue,red 
+set color_bar = default           # the usual colors
+set color_bar = blue_red          # blue,red 
 #set color_bar = blue_yellow_red   # blue,yellow,red (nice!) 
 
 #----------------------------------------------------------------
@@ -333,9 +333,9 @@ set cntl_name = cam3_5_cntl               # control case name
 # work better in powerpoint presentations, try density = 150.
 
 set web_pages = 0    # (0=ON,1=OFF)  make images and html files
-set delete_ps = 0    # (0=ON,1=OFF)  delete postscript files 
+set delete_ps = 1    # (0=ON,1=OFF)  delete postscript files 
 set img_type  = 0    # (0=PNG,1=GIF,2=JPG) select image type
-set density   = 85   # pixels/inch, use larger number for higher 
+set density   = 150  # pixels/inch, use larger number for higher 
                      # resolution images (default is 85)
 
 #----------------------------------------------------------------
@@ -344,7 +344,7 @@ set density   = 85   # pixels/inch, use larger number for higher
 # after the plots are made. If you want to save the 
 # netcdf files for your own uses then switch to ON. 
 
-set save_ncdfs = 1       # (0=ON,1=OFF)
+set save_ncdfs = 0       # (0=ON,1=OFF)
 #----------------------------------------------------------------
 
 # Compute whether the means of the test case and control case 
@@ -379,7 +379,7 @@ set sig_lvl = 0.05           # level of significance
 #setenv DIAG_HOME /project/amp/amwg/amwg_diagnostics 
 
 # CSIL machines (geyser, caldeira, ...)
-setenv DIAG_HOME /home/ajueling/AMWG/amwg_diag_20140804
+setenv DIAG_HOME /home/ajueling/AMWG  #/amwg_diag_20140804
 
 # NERSC (euclid)
 #setenv DIAG_HOME /global/homes/h/hannay/amwg/amwg_diagnostics
@@ -413,8 +413,8 @@ set email_address = ${LOGNAME}@ucar.edu
 # By default, teh CAM-SE output is interpolated CAM_SE on a 1 degree grid
 # You can select another grid below.
 
-set test_res_out = 0.9x1.25
-set cntl_res_out = 0.9x1.25
+set test_res_out = 0.47x0.63
+set cntl_res_out = 0.47x0.63
 
 # Set the interpolation method for regridding: bilinear, patch, conserver
 setenv INTERP_METHOD bilinear
