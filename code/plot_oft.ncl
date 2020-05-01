@@ -252,6 +252,8 @@ if (compare.ne."OBS") then
   data(2,0:dimXY(2)-1) = (/oft2(3,:)/)  ; model 2 
 end if
 plotO = gsn_csm_xy(wks,plat,data,res)
+;MK store in other variable for saving to netcdf file later
+data_tot = data
 
 ; pacific ocean
 res@gsnLeftString = "Pacific Ocean"
@@ -262,6 +264,8 @@ if (compare.ne."OBS") then
   data(2,0:dimXY(2)-1) = (/oft2(0,:)/)   ; model 2 
 end if
 plotP = gsn_csm_xy(wks,plat,data,res)
+;MK store in other variable for saving to netcdf file later
+data_pac = data
 
 ; atlantic ocean
 res@gsnLeftString = "Atlantic Ocean"
@@ -272,6 +276,8 @@ if (compare.ne."OBS") then
   data(2,0:dimXY(2)-1) = (/oft2(1,:)/)    ; model 2 
 end if
 plotA = gsn_csm_xy(wks,plat,data,res)
+;MK store in other variable for saving to netcdf file later
+data_atl = data
 
 ; indian ocean
 res@gsnLeftString = "Indian Ocean"
@@ -282,6 +288,8 @@ if (compare.ne."OBS") then
   data(2,0:dimXY(2)-1) = (/oft2(2,:)/)    ; model 2 
 end if
 plotI = gsn_csm_xy(wks,plat,data,res)
+;MK store in other variable for saving to netcdf file later
+data_ind = data
 
 pan = True
 pan@gsnMaximize = True
@@ -299,5 +307,133 @@ txres = True
 txres@txFontHeightF = 0.016
 gsn_text_ndc(wks,"Annual Implied Northward Freshwater Transport",0.5,0.98,txres)
 frame (wks)
+
+; MK 
+;===================================================================
+; write all ocean freshwater transports to netcdf file TEST_PLOTVARS (outfile1) when comparing to observations
+; or to CNTL_PLOTVARS (outfile2) when comparing to another model run 
+;===================================================================
+
+if (compare.eq."OBS") then
+  print(" write all ocean freshwater transports to netcdf file:")
+  print(" " + outfile1)
+  fout=outptr1
+else
+  print(" write all ocean freshwater transports to netcdf file:")
+  print(" " + outfile2)
+  fout=outptr2
+end if
+print(" functionality added by MK from IMAU")
+
+;===================================================================
+; create global attributes of the file (optional)
+;===================================================================
+fileAtt               = True
+fileAtt@creation_date = systemfunc("date")
+fileAtt@src           = "plot_and_write_oft.ncl"
+
+fileattdef(fout, fileAtt)  ; copy file attributes
+
+; save total ocean freshwater transport 
+oft_tot_ecmwf = data_tot(0,:)
+oft_tot_ecmwf!0 = "lats_ecmwf"
+oft_tot_ecmwf&lats_ecmwf = plat(0,:)
+oft_tot_ecmwf@units = "Sv"
+oft_tot_ecmwf@long_name = "total ocean freshwater transport ecmwf"
+fout->oft_tot_ecmwf = oft_tot_ecmwf
+
+oft_tot_testcase = data_tot(1,:)
+oft_tot_testcase!0 = "lats_testcase"
+oft_tot_testcase&lats_testcase = plat(1,:)
+oft_tot_testcase@units = "Sv"
+oft_tot_testcase@long_name = "total ocean freshwater transport " + case1
+fout->oft_tot_testcase = oft_tot_testcase
+
+if (compare .ne. "OBS") then
+  ; testcase is compared with control case
+  oft_tot_controlcase = data_tot(2,:)
+  oft_tot_controlcase!0 = "lats_controlcase"
+  oft_tot_controlcase&lats_controlcase = plat(2,:)
+  oft_tot_controlcase@units = "Sv"
+  oft_tot_controlcase@long_name = "total ocean freshwater transport " + case2
+  fout->oft_tot_controlcase = oft_tot_controlcase
+end if
+
+; save pacific ocean freshwater transport
+oft_pac_ecmwf = data_pac(0,:)
+oft_pac_ecmwf!0 = "lats_ecmwf"
+oft_pac_ecmwf&lats_ecmwf = plat(0,:)
+oft_pac_ecmwf@units = "Sv"
+oft_pac_ecmwf@long_name = "pacific ocean freshwater transport ecmwf"
+fout->oft_pac_ecmwf = oft_pac_ecmwf
+
+oft_pac_testcase = data_pac(1,:)
+oft_pac_testcase!0 = "lats_testcase"
+oft_pac_testcase&lats_testcase = plat(1,:)
+oft_pac_testcase@units = "Sv"
+oft_pac_testcase@long_name = "pacific ocean freshwater transport " + case1
+fout->oft_pac_testcase = oft_pac_testcase
+
+if (compare .ne. "OBS") then
+  ; testcase is compared with control case
+  oft_pac_controlcase = data_pac(2,:)
+  oft_pac_controlcase!0 = "lats_controlcase"
+  oft_pac_controlcase&lats_controlcase = plat(2,:)
+  oft_pac_controlcase@units = "Sv"
+  oft_pac_controlcase@long_name = "pacific ocean freshwater transport " + case2
+  fout->oft_pac_controlcase = oft_pac_controlcase
+end if
+
+; save atlantic ocean freshwater transport
+oft_atl_ecmwf = data_atl(0,:)
+oft_atl_ecmwf!0 = "lats_ecmwf"
+oft_atl_ecmwf&lats_ecmwf = plat(0,:)
+oft_atl_ecmwf@units = "Sv"
+oft_atl_ecmwf@long_name = "atlantic ocean freshwater transport ecmwf"
+fout->oft_atl_ecmwf = oft_atl_ecmwf
+
+oft_atl_testcase = data_atl(1,:)
+oft_atl_testcase!0 = "lats_testcase"
+oft_atl_testcase&lats_testcase = plat(1,:)
+oft_atl_testcase@units = "Sv"
+oft_atl_testcase@long_name = "atlantic ocean freshwater transport " + case1
+fout->oft_atl_testcase = oft_atl_testcase
+
+if (compare .ne. "OBS") then
+  ; testcase is compared with control case
+  oft_atl_controlcase = data_atl(2,:)
+  oft_atl_controlcase!0 = "lats_controlcase"
+  oft_atl_controlcase&lats_controlcase = plat(2,:)
+  oft_atl_controlcase@units = "Sv"
+  oft_atl_controlcase@long_name = "atlantic ocean freshwater transport " + case2
+  fout->oft_atl_controlcase = oft_atl_controlcase
+end if
+
+; save indian ocean freshwater transport
+oft_ind_ecmwf = data_ind(0,:)
+oft_ind_ecmwf!0 = "lats_ecmwf"
+oft_ind_ecmwf&lats_ecmwf = plat(0,:)
+oft_ind_ecmwf@units = "Sv"
+oft_ind_ecmwf@long_name = "indan ocean freshwater transport ecmwf"
+fout->oft_ind_ecmwf = oft_ind_ecmwf
+
+oft_ind_testcase = data_ind(1,:)
+oft_ind_testcase!0 = "lats_testcase"
+oft_ind_testcase&lats_testcase = plat(1,:)
+oft_ind_testcase@units = "Sv"
+oft_ind_testcase@long_name = "indian ocean freshwater transport " + case1
+fout->oft_ind_testcase = oft_ind_testcase
+
+if (compare .ne. "OBS") then
+  ; testcase is compared with control case
+  oft_ind_controlcase = data_ind(2,:)
+  oft_ind_controlcase!0 = "lats_controlcase"
+  oft_ind_controlcase&lats_controlcase = plat(2,:)
+  oft_ind_controlcase@units = "Sv"
+  oft_ind_controlcase@long_name = "indian ocean freshwater transport " + case2
+  fout->oft_ind_controlcase = oft_ind_controlcase
+end if
+
+;/MK
 
 end
