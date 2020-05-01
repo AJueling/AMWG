@@ -158,7 +158,7 @@ set cntl_path_HPSS    = /CCSM/csm/${cntl_casename}/atm/hist/
 #-----------------------------------------------------------------
 # Turn on/off the computation of climatologies 
       
-set test_compute_climo = 0  # (0=ON,1=OFF) 
+set test_compute_climo = 1  # (0=ON,1=OFF) 
 set cntl_compute_climo = 1  # (0=ON,1=OFF) 
 
 #-----------------------------------------------------------------
@@ -3190,7 +3190,7 @@ if ($weight_months == 0) then
 endif
 if ($save_ncdfs == 1) then
   echo "================== " CLEANING UP
-  endif
+  # endif
   \rm -f ${test_path_diag}/${test_casename}*_plotvars.nc
   if ($CNTL == USER) then
     \rm -f ${test_path_diag}/${cntl_casename}*_plotvars.nc  
