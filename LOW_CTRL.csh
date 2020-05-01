@@ -170,7 +170,8 @@ set cntl_compute_climo = 0  # (0=ON,1=OFF)
 # Number of years is: $test_nyrs         (must be >= 1)
 
 set test_first_yr = 500           # first year (must be >= 1)
-set test_nyrs     = 30            # number of yrs (must be >= 1)
+#MK set test_nyrs     = 30            # number of yrs (must be >= 1)
+set test_nyrs     = 1           # number of yrs (must be >= 1)
 
 # FOR CNTL == USER ONLY (otherwise skip this section)
 # First year of data is: $cntl_first_yr     (must be >= 1)
@@ -3190,7 +3191,7 @@ if ($weight_months == 0) then
 endif
 if ($save_ncdfs == 1) then
   echo "================== " CLEANING UP
-  endif
+  #endif
   \rm -f ${test_path_diag}/${test_casename}*_plotvars.nc
   if ($CNTL == USER) then
     \rm -f ${test_path_diag}/${cntl_casename}*_plotvars.nc  

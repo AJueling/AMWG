@@ -104,15 +104,15 @@ setenv DIAG_VERSION 140804  # version number YYMMDD
 #
 # Don t forget the trailing / when setting the paths
 
-set test_casename  = rcp8.5_co2_f09_g16
-set test_amwg_case = LOW_RCP_2070-2100
+set test_casename  = rcp8.5_co2_f05_t12
+set test_amwg_case = HIGH_RCP_2070-2100
 set test_filetype  = monthly_history 
 #set test_filetype = time_series
 
-set test_path_history = /projects/0/acc/cesm/cesm1_1_2/$test_casename/OUTPUT/atm/hist/monthly/
+set test_path_history = /projects/0/prace_imau/prace_2013081679/cesm1_0_4/$test_casename/OUTPUT/atm/hist/monthly/
 set test_path_climo   = /projects/0/prace_imau/prace_2013081679/andre/AMWG/$test_amwg_case/climo
 set test_path_diag    = /projects/0/prace_imau/prace_2013081679/andre/AMWG/$test_amwg_case/diag/
-set test_path_HPSS    = /projects/0/acc/cesm/cesm1_1_2/$test_casename/OUTPUT/atm/hist/monthly
+set test_path_HPSS    = /projects/0/prace_imau/prace_2013081679/cesm1_0_4/$test_casename/OUTPUT/atm/hist/monthly/
 
 #******************************************************************
 
@@ -137,14 +137,14 @@ set CNTL = USER           # user defined model control (see below)
 
 # Don t forget the trailing / when setting the paths
 
-set cntl_casename  = rcp8.5_co2_f09_g16
-set cntl_amwg_case = LOW_RCP_2000-2030
+set cntl_casename  = rcp8.5_co2_f05_t12
+set cntl_amwg_case = HIGH_RCP_2000-2030
 set cntl_filetype  = monthly_history 
 #set cntl_filetype = time_series
 
-set cntl_path_history = /projects/0/acc/cesm/cesm1_1_2/$cntl_casename/OUTPUT/atm/hist/monthly 
+set cntl_path_history = /projects/0/acc/cesm/cesm1_0_4/$cntl_casename/OUTPUT/atm/hist/monthly 
 set cntl_path_climo   = /projects/0/prace_imau/prace_2013081679/andre/AMWG/$cntl_amwg_case/climo
-set cntl_path_HPSS    = /projects/0/acc/cesm/cesm1_1_2/$cntl_casename/OUTPUT/atm/hist/monthly
+set cntl_path_HPSS    = /projects/0/prace_imau/prace_2013081679/cesm1_0_4/$cntl_casename/OUTPUT/atm/hist/monthly/
 
 #******************************************************************
 
@@ -170,14 +170,14 @@ set cntl_compute_climo = 0  # (0=ON,1=OFF)
 # Number of years is: $test_nyrs         (must be >= 1)
 
 set test_first_yr = 2070        # first year (must be >= 1)
-set test_nyrs     = 2100        # number of yrs (must be >= 1)
+set test_nyrs     =   30        # number of yrs (must be >= 1)
 
 # FOR CNTL == USER ONLY (otherwise skip this section)
 # First year of data is: $cntl_first_yr     (must be >= 1)
 # Number of years is: $cntl_nyrs         (must be >= 1)
 
 set cntl_first_yr = 2000        # first year (must be >= 1)
-set cntl_nyrs     = 2030        # number of yrs (must be >= 1)
+set cntl_nyrs     =   30        # number of yrs (must be >= 1)
 
 #-----------------------------------------------------------------
 # Strip off all the variables that are not required by the AMWG package
@@ -333,7 +333,7 @@ set cntl_name = cam3_5_cntl               # control case name
 # work better in powerpoint presentations, try density = 150.
 
 set web_pages = 0    # (0=ON,1=OFF)  make images and html files
-set delete_ps = 0    # (0=ON,1=OFF)  delete postscript files 
+set delete_ps = 1    # (0=ON,1=OFF)  delete postscript files 
 set img_type  = 0    # (0=PNG,1=GIF,2=JPG) select image type
 set density   = 150  # pixels/inch, use larger number for higher 
                      # resolution images (default is 85)
@@ -413,8 +413,8 @@ set email_address = ${LOGNAME}@ucar.edu
 # By default, teh CAM-SE output is interpolated CAM_SE on a 1 degree grid
 # You can select another grid below.
 
-set test_res_out = 0.9x1.25
-set cntl_res_out = 0.9x1.25
+set test_res_out = 0.47x0.63
+set cntl_res_out = 0.47x0.63
 
 # Set the interpolation method for regridding: bilinear, patch, conserver
 setenv INTERP_METHOD bilinear

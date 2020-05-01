@@ -104,8 +104,8 @@ setenv DIAG_VERSION 140804  # version number YYMMDD
 #
 # Don t forget the trailing / when setting the paths
 
-set test_casename  = rcp8.5_co2_f05_t12
-set test_amwg_case = HIGH_RCP_2070-2100
+set test_casename  = spinup_pd_maxcores_f05_t12
+set test_amwg_case = HIGH_CTRL
 set test_filetype  = monthly_history 
 #set test_filetype = time_series
 
@@ -137,14 +137,14 @@ set CNTL = USER           # user defined model control (see below)
 
 # Don t forget the trailing / when setting the paths
 
-set cntl_casename  = rcp8.5_co2_f05_t12
-set cntl_amwg_case = HIGH_RCP_2000-2030
+set cntl_casename  =  spinup_B_2000_cam5_f09_g16
+set cntl_amwg_case = LOW_CTRL
 set cntl_filetype  = monthly_history 
 #set cntl_filetype = time_series
 
 set cntl_path_history = /projects/0/acc/cesm/cesm1_1_2/$cntl_casename/OUTPUT/atm/hist/monthly 
 set cntl_path_climo   = /projects/0/prace_imau/prace_2013081679/andre/AMWG/$cntl_amwg_case/climo
-set cntl_path_HPSS    = /projects/0/prace_imau/prace_2013081679/cesm1_0_4/$cntl_casename/OUTPUT/atm/hist/monthly/
+set cntl_path_HPSS    = /CCSM/csm/${cntl_casename}/atm/hist/
 
 #******************************************************************
 
@@ -169,15 +169,15 @@ set cntl_compute_climo = 0  # (0=ON,1=OFF)
 # First year of data is: $test_first_yr     (must be >= 1)
 # Number of years is: $test_nyrs         (must be >= 1)
 
-set test_first_yr = 2070        # first year (must be >= 1)
-set test_nyrs     = 2100        # number of yrs (must be >= 1)
+set test_first_yr = 200        # first year (must be >= 1)
+set test_nyrs     =  30        # number of yrs (must be >= 1)
 
 # FOR CNTL == USER ONLY (otherwise skip this section)
 # First year of data is: $cntl_first_yr     (must be >= 1)
 # Number of years is: $cntl_nyrs         (must be >= 1)
 
-set cntl_first_yr = 2000        # first year (must be >= 1)
-set cntl_nyrs     = 2030        # number of yrs (must be >= 1)
+set cntl_first_yr = 500        # first year (must be >= 1)
+set cntl_nyrs     =  30        # number of yrs (must be >= 1)
 
 #-----------------------------------------------------------------
 # Strip off all the variables that are not required by the AMWG package
@@ -414,7 +414,7 @@ set email_address = ${LOGNAME}@ucar.edu
 # You can select another grid below.
 
 set test_res_out = 0.47x0.63
-set cntl_res_out = 0.47x0.63
+set cntl_res_out = 0.9x1.25
 
 # Set the interpolation method for regridding: bilinear, patch, conserver
 setenv INTERP_METHOD bilinear
